@@ -2,53 +2,39 @@ package parking
 
 const val isInDebugMode: Boolean = false
 
-lateinit var command: String
-lateinit var regNumber: String
-lateinit var colour: String
-var parkingSpotNumber: Int = 0
-
 fun main() {
-    var parking = Parking()
 
-    readCommand()
-
-    when (command) {
-        "park" -> {
-            var car = Vehicle(regNumber, colour)
-            parking.park(car)
-
-        }
-        "leave" -> {
-            parking.leave(parkingSpotNumber)
-        }
-        else -> {
-            println("I don't understand your command")
-        }
-    }
+    readCommand(Parking()).execute()
 
 }
 
-fun readCommand() {
+fun readCommand(parking: Parking): ICommand {
     var userInput = Utils.readUserInput()
 
     if (userInput[0] == "park") {
-        command = userInput[0]
-        regNumber = userInput[1]
-        colour = userInput[2]
-
         if (isInDebugMode) {
-            println("$command, $regNumber, $colour")
+            println("${userInput[0]}, ${userInput[1]}, ${userInput[2]}")
+        }
+        return object : ICommand {
+            override fun execute() {
+                parking.parkOnSpot(Vehicle(userInput[1], userInput[2]))
+            }
         }
     } else if (userInput[0] == "leave") {
-        command = userInput[0]
-        parkingSpotNumber = userInput[1].toInt()
-
         if (isInDebugMode) {
-            println("$command, $parkingSpotNumber")
+            println("${userInput[0]}, ${userInput[1]}")
+        }
+        return object : ICommand {
+            override fun execute() {
+                parking.leaveASpot(userInput[1].toInt())
+            }
         }
     } else {
-        println("No such command.")
+        return object : ICommand {
+            override fun execute() {
+                println("No such command.")
+            }
+        }
     }
-
 
 }
