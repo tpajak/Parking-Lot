@@ -13,18 +13,14 @@ fun readCommand(parking: Parking): ICommand {
     var commandResult = CommandResult(userInput[0])
 
     if (commandResult.command.equals("park")) {
-        if (isInDebugMode) {
-            println("${userInput[0]}, ${userInput[1]}, ${userInput[2]}")
-        }
+        var commandResult = CommandResult(userInput[0], userInput[1], userInput[2])
         return object : ICommand {
             override fun execute() {
                 parking.parkOnSpot(Vehicle(commandResult.regNumber, commandResult.colour))
             }
         }
     } else if (commandResult.command.equals("leave")) {
-        if (isInDebugMode) {
-            println("${userInput[0]}, ${userInput[1]}")
-        }
+        var commandResult = CommandResult(userInput[0], userInput[1].toInt())
         return object : ICommand {
             override fun execute() {
                 parking.leaveASpot(commandResult.spotNumber)
