@@ -3,14 +3,14 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/240918/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Mon, 28 Mar 2022 03:32:49 UTC
+update_date: Fri, 06 May 2022 02:59:50 UTC
 stages:
 - id: 416
   step: 6597
   is_completed: true
 - id: 417
   step: 6598
-  is_completed: false
+  is_completed: true
 - id: 418
   step: 6599
   is_completed: false
@@ -63,7 +63,7 @@ topics:
     theory_id: 4445
   - title: Type conversion
     theory_id: 4672
-  - title: Reading data with a readLine
+  - title: Reading data with a readln
     theory_id: 11224
   - title: String basics
     theory_id: 12553
@@ -152,6 +152,10 @@ topics:
     theory_id: 9689
   - title: Member functions
     theory_id: 6364
+  - title: Pseudocode
+    theory_id: 15090
+  - title: Pseudocode basics
+    theory_id: 19510
   - title: Stack
     theory_id: 5252
   - title: Call stack

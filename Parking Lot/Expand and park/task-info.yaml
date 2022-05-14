@@ -153,6 +153,91 @@ files:
     }
 
   learner_created: false
+- name: src/parking/Utils.kt
+  visible: true
+  text: |-
+    package parking
+
+    class Utils {
+        companion object {
+            fun readUserInput() = readLine()!!.split(" ").map { it.toString() }
+        }
+    }
+  learner_created: true
+- name: src/parking/Vehicle.kt
+  visible: true
+  text: |
+    package parking
+
+    class Vehicle(val regNumber: String, val colour: String) {
+
+    }
+  learner_created: true
+- name: src/parking/Parking.kt
+  visible: true
+  text: |-
+    package parking
+
+    class Parking {
+        private val parkingSpace = mutableListOf<Vehicle>(
+            Vehicle("dummyNumber", "dummyColour"),
+            Vehicle("DB-123-12", "Orange")
+        )
+
+        fun park(vehicle: Vehicle) {
+            parkingSpace.add(vehicle)
+            println("${vehicle.colour} car parked in spot ${getParkingSpaceNumber(vehicle.regNumber)}.")
+        }
+
+        fun leave(parkingSpotNumber: Int) {
+            if (parkingSpace.getOrNull(parkingSpotNumber) == null) {
+                println("There is no car in spot ${parkingSpotNumber}.")
+            } else {
+                println("Spot ${parkingSpotNumber} is free.")
+            }
+        }
+
+        fun getParkingSpaceNumber(regNumber: String): Int {
+            val parkingSpaceNumber = parkingSpace.indexOfFirst { it.regNumber == regNumber }
+            return parkingSpaceNumber
+        }
+    }
+  learner_created: true
+- name: src/parking/ConsoleMessageHandler.kt
+  visible: true
+  learner_created: true
+- name: src/parking/IFindSpaceAlgorithm.kt
+  visible: true
+  learner_created: true
+- name: src/parking/IParkingSpace.kt
+  visible: true
+  learner_created: true
+- name: src/parking/IMessageHandler.kt
+  visible: true
+  learner_created: true
+- name: src/parking/CommandResult.kt
+  visible: true
+  learner_created: true
+- name: src/parking/ParkingEvent.kt
+  visible: true
+  learner_created: true
+- name: src/parking/ICommand.kt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/6599#comment
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #1
+
+    Error in line 1: &quot;null car parked in spot 2.&quot; instead of &quot;White car parked in spot 1.&quot;. See example 1.
+
+    Please find below the output of your program during this failed test.
+    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
+
+    ---
+
+    &gt; park KA-0-HH-9999 White
+    null car parked in spot 2.
+  time: Fri, 06 May 2022 03:01:40 UTC
+record: 3

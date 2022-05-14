@@ -106,6 +106,39 @@ files:
     }
 
   learner_created: false
+- name: src/parking/Parking.kt
+  visible: true
+  learner_created: true
+- name: src/parking/Vehicle.kt
+  visible: true
+  learner_created: true
+- name: src/parking/Utils.kt
+  visible: true
+  learner_created: true
+- name: src/parking/IParkingSpace.kt
+  visible: true
+  learner_created: true
+- name: src/parking/IMessageHandler.kt
+  visible: true
+  learner_created: true
+- name: src/parking/ConsoleMessageHandler.kt
+  visible: true
+  learner_created: true
+- name: src/parking/IFindSpaceAlgorithm.kt
+  visible: true
+  learner_created: true
+- name: src/parking/ParkingEvent.kt
+  visible: true
+  learner_created: true
+- name: src/parking/ICommand.kt
+  visible: true
+  learner_created: true
+- name: src/parking/CommandResult.kt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/6598#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 06 May 2022 03:02:13 UTC
+record: 2

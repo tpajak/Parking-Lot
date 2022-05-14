@@ -1,5 +1,5 @@
 package parking
 
-class Vehicle(val regNumber: String, val colour: String) {
+data class Vehicle(val regNumber: String?, val colour: String?) {
 
 }
