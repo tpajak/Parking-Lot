@@ -2,53 +2,42 @@ package parking
 
 const val isInDebugMode: Boolean = false
 
-lateinit var command: String
-lateinit var regNumber: String
-lateinit var colour: String
-var parkingSpotNumber: Int = 0
-
 fun main() {
-    var parking = Parking()
 
-    readCommand()
-
-    when (command) {
-        "park" -> {
-            var car = Vehicle(regNumber, colour)
-            parking.park(car)
-
-        }
-        "leave" -> {
-            parking.leave(parkingSpotNumber)
-        }
-        else -> {
-            println("I don't understand your command")
-        }
-    }
+    do {
+        readCommand(Parking()).execute()
+    } while (readCommand(Parking()).execute().equals("exit"))
 
 }
 
-fun readCommand() {
+fun readCommand(parking: Parking): ICommand {
     var userInput = Utils.readUserInput()
+    var commandResult = CommandResult(userInput)
 
-    if (userInput[0] == "park") {
-        command = userInput[0]
-        regNumber = userInput[1]
-        colour = userInput[2]
-
-        if (isInDebugMode) {
-            println("$command, $regNumber, $colour")
+    if (commandResult.command.equals("park")) {
+        return object : ICommand {
+            override fun execute() {
+                parking.parkOnSpot(Vehicle(commandResult.regNumber, commandResult.colour))
+            }
         }
-    } else if (userInput[0] == "leave") {
-        command = userInput[0]
-        parkingSpotNumber = userInput[1].toInt()
+    } else if (commandResult.command.equals("leave")) {
+        return object : ICommand {
+            override fun execute() {
+                parking.leaveASpot(commandResult.spotNumber)
+            }
+        }
+    } else if (commandResult.command.equals("exit")) {
+        return object : ICommand {
+            override fun execute() {
+                println("exiting....")
+            }
 
-        if (isInDebugMode) {
-            println("$command, $parkingSpotNumber")
         }
     } else {
-        println("No such command.")
+        return object : ICommand {
+            override fun execute() {
+                TODO("Not yet implemented")
+            }
+        }
     }
-
-
 }

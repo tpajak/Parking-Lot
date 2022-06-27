@@ -107,5 +107,8 @@ files:
 
   learner_created: false
 feedback_link: https://hyperskill.org/learn/step/6598#comment
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: Compilation Failed
+  time: Sat, 14 May 2022 04:22:21 UTC
+record: 3
