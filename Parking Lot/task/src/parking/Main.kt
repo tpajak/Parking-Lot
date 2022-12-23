@@ -24,6 +24,7 @@ fun readCommand(parking: Parking): Command {
                 val commandResult = CommandResult(userInput[0], userInput[1], userInput[2])
                 return SimpleCommand {
                     parking.parkOnSpot(Vehicle(commandResult.regNumber, commandResult.colour))
+                    readCommand(parking).execute()
                 }
             }
             "leave" -> {
