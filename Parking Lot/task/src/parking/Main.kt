@@ -5,47 +5,56 @@ import kotlin.system.exitProcess
 //const val isInDebugMode: Boolean = false
 
 fun main() {
-    readCommand(Parking()).execute()
+        var result: String? = null
+        val parking: Parking = Parking()
+    do {
+        val simpleCommand = readCommand(parking)
+
+        result = simpleCommand.execute()
+    } while (result != "exit")
+    //enum or sealed class
 }
 
-class SimpleCommand(private val command: () -> Unit) : Command {
-    override fun execute() {
-        command.invoke()
-    }
-
+class SimpleCommand(private val command: () -> String) : Command {
+    override fun execute() = command.invoke()
 }
+
 
 fun readCommand(parking: Parking): Command {
     val userInput = Utils.readUserInput()
     val commandResult = CommandResult(userInput[0])
 
-        when (commandResult.command) {
-            "park" -> {
-                val commandResult = CommandResult(userInput[0], userInput[1], userInput[2])
-                return SimpleCommand {
-                    parking.parkOnSpot(Vehicle(commandResult.regNumber, commandResult.colour))
-                    readCommand(parking).execute()
-                }
+    when (commandResult.command) {
+        "park" -> {
+            val commandResult = CommandResult(userInput[0], userInput[1], userInput[2])
+            return SimpleCommand {
+                parking.parkOnSpot(Vehicle(commandResult.regNumber, commandResult.colour))
+                return@SimpleCommand "park"
             }
-            "leave" -> {
-                val commandResult = CommandResult(userInput[0], userInput[1].toInt())
-                return SimpleCommand {
-                    parking.leaveASpot(commandResult.spotNumber)
-                }
+        }
+
+        "leave" -> {
+            val commandResult = CommandResult(userInput[0], userInput[1].toInt())
+            return SimpleCommand {
+                parking.leaveASpot(commandResult.spotNumber)
+                return@SimpleCommand "leave"
             }
-            "exit" -> {
-                return object : Command {
-                    override fun execute() {
-                        exitProcess(1)
-                    }
-                }
-            }
-            else -> {
-                return object : Command {
-                    override fun execute() {
-                        println("No such command.")
-                    }
+        }
+
+        "exit" -> {
+            return object : Command {
+                override fun execute(): String {
+                    return "exit"
                 }
             }
         }
+
+        else -> {
+            return object : Command {
+                override fun execute(): String {
+                    return "No such command."
+                }
+            }
+        }
+    }
 }

@@ -1,5 +1,5 @@
 package parking
 
 interface Command {
-    fun execute()
+    fun execute(): String
 }
