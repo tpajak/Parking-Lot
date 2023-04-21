@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/240918/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Fri, 23 Dec 2022 08:00:35 UTC"
+update_date: "Wed, 19 Apr 2023 12:13:24 UTC"
 stages:
 - id: 416
   step: 6597
@@ -13,7 +13,7 @@ stages:
   is_completed: true
 - id: 418
   step: 6599
-  is_completed: false
+  is_completed: true
 - id: 419
   step: 6600
   is_completed: false
@@ -44,10 +44,10 @@ topics:
     theory_id: 4419
   - title: Naming variables
     theory_id: 4389
-  - title: Standard output
-    theory_id: 4425
   - title: The classification of basic types
     theory_id: 4455
+  - title: Standard output
+    theory_id: 4425
   - title: Boolean and logical operations
     theory_id: 4515
   1:
@@ -57,12 +57,12 @@ topics:
     theory_id: 8788
   - title: IDE
     theory_id: 10996
-  - title: Invoking functions
-    theory_id: 4575
-  - title: Standard input
-    theory_id: 4445
   - title: Type conversion
     theory_id: 4672
+  - title: Invoking functions
+    theory_id: 4575
+  - title: Standard input with Java Scanner
+    theory_id: 4445
   - title: Reading data with a readln
     theory_id: 11224
   - title: String basics
@@ -109,7 +109,7 @@ topics:
     theory_id: 9027
   - title: IntelliJ IDEA
     theory_id: 3801
-  - title: IDEA Basics
+  - title: IntelliJ IDEA basics
     theory_id: 5819
   - title: EduTools
     theory_id: 5839

@@ -178,64 +178,8 @@ files:
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/6599#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #1
-
-    Error in line 2: &quot;Green car parked in spot 1.&quot; instead of &quot;Green car parked in spot 2.&quot;. See example 1.
-
-    Please find below the output of your program during this failed test.
-    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
-
-    ---
-
-    &gt; park KA-0-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-0-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-1-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-1-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-2-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-2-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-3-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-3-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-4-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-4-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-5-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-5-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-6-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-6-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-7-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-7-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-8-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-8-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park KA-9-HH-9999 White
-    White car parked in spot 1.
-    &gt; park KA-9-HH-3672 Green
-    Green car parked in spot 1.
-    &gt; park Rs-P-N-21 Red
-    Red car parked in spot 1.
-    &gt; leave 1
-    There is no car in spot 1.
-    &gt; park Rs-P-N-21 Red
-    Red car parked in spot 1.
-    &gt; exit
-  time: "Fri, 23 Dec 2022 09:38:58 UTC"
+  message: Congratulations!
+  time: "Tue, 27 Dec 2022 14:42:57 UTC"
 record: 1

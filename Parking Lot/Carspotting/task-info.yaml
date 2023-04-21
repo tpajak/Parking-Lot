@@ -66,35 +66,6 @@ files:
             get() = _colour
     }
   learner_created: false
-- name: src/parking/ICommand.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface ICommand {
-        fun execute()
-    }
-  learner_created: false
-- name: src/parking/IParkingSpace.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface IParkingSpace {
-        fun parkOnSpot(vehicle: Vehicle)
-
-        fun leaveASpot(int: Int?)
-    }
-  learner_created: false
-- name: src/parking/IMessageHandler.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface IMessageHandler {
-        fun handleMessage(message: String)
-    }
-  learner_created: false
 - name: src/parking/CommandResult.kt
   visible: true
   text: |-
@@ -131,16 +102,6 @@ files:
         }
     }
 
-  learner_created: false
-- name: src/parking/IFindSpaceAlgorithm.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface IFindSpaceAlgorithm {
-
-        fun findFirstFreeSpot()
-    }
   learner_created: false
 - name: test/ParkingTest.kt
   visible: false
@@ -314,6 +275,196 @@ files:
         }
     }
   learner_created: false
+- name: src/parking/ParkingSpace.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface ParkingSpace {
+        fun parkOnSpot(vehicle: Vehicle)
+
+        fun leaveASpot(int: Int?)
+
+        fun hasAFreeSpot(): Boolean
+
+        fun status()
+
+        fun setSize(parkingSize: Int): Int
+
+        fun getParkingSize(): Int
+    }
+  learner_created: true
+- name: src/parking/Utils.kt
+  visible: true
+  text: |-
+    package parking
+    class Utils {
+        companion object {
+            fun readUserInput(): List<String> {
+                return readLine()?.let {
+                    it.split(" ")
+                } ?: "-1" as List<String>
+            }
+        }
+    }
+  learner_created: true
+- name: src/parking/Vehicle.kt
+  visible: true
+  text: |-
+    package parking
+
+    data class Vehicle(val regNumber: String?, val colour: String?) {
+
+    }
+  learner_created: true
+- name: src/parking/FindSpaceAlgorithm.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface FindSpaceAlgorithm {
+
+        fun findFirstFreeSpot()
+    }
+  learner_created: true
+- name: src/parking/MessageHandler.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface MessageHandler {
+        fun handleMessage(message: String)
+    }
+  learner_created: true
+- name: src/parking/Parking.kt
+  visible: true
+  text: |-
+    package parking
+
+    class Parking(
+        private val handler: MessageHandler,
+        private var parkingSize: Int,
+    ) : ParkingSpace {
+
+        private var parkingSpace: Array<Vehicle?> = arrayOfNulls(parkingSize)
+
+        override fun parkOnSpot(vehicle: Vehicle) {
+            if (parkingSize == 0) {
+                handler.handleMessage("Sorry, a parking lot has not been created.")
+            } else {
+                for (parkingLot in parkingSpace.indices) {
+                    if (parkingSpace[parkingLot] === null) {
+                        parkingSpace[parkingLot] = vehicle
+                        handler.handleMessage("${vehicle.colour} car parked in spot ${parkingLot + 1}.")
+                        //println(parkingSpace.contentToString())
+                        break
+                    }
+                    if (!hasAFreeSpot()) {
+                        handler.handleMessage("Sorry, the parking lot is full.")
+                        break
+                    }
+                }
+            }
+
+        }
+
+        override fun leaveASpot(int: Int?) {
+            if (parkingSize == 0) {
+                handler.handleMessage("Sorry, a parking lot has not been created.")
+            } else {
+                if (parkingSpace.getOrNull(int!! - 1) == null) {
+                    handler.handleMessage("There is no car in spot ${int}.")
+                } else {
+                    parkingSpace[int - 1] = null
+                    handler.handleMessage("Spot $int is free.")
+                }
+            }
+        }
+
+        override fun hasAFreeSpot(): Boolean {
+            var count = 0
+            for (parkingLot in parkingSpace.indices) {
+                if (parkingSpace[parkingLot] === null) {
+                    count++
+                }
+            }
+            return count > 0
+        }
+
+        override fun status() {
+            if (parkingSize == 0) {
+                handler.handleMessage("Sorry, a parking lot has not been created.")
+            } else {
+                var isArrayEmpty: Boolean = true
+
+                for (parkingLot in parkingSpace.indices) {
+                    if (parkingSpace[parkingLot] != null) {
+                        println("${parkingLot + 1} ${parkingSpace[parkingLot]?.regNumber} ${parkingSpace[parkingLot]?.colour}")
+                    }
+                    if (parkingSpace[parkingLot] != null) {
+                        isArrayEmpty = false
+                    }
+                }
+                if (isArrayEmpty) {
+                    println("Parking lot is empty.")
+                }
+            }
+        }
+
+        override fun setSize(parkingSize: Int): Int {
+            this.parkingSize = parkingSize
+            parkingSpace = arrayOfNulls(parkingSize)
+            println("Created a parking lot with ${parkingSize} spots.")
+            return this.parkingSize
+        }
+
+        override fun getParkingSize(): Int {
+            return this.parkingSize
+        }
+
+    }
+  learner_created: true
+- name: src/parking/Command.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface
+    Command {
+        fun execute(): String
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/6601#comment
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #1
+
+    Error in line 1: &quot;Created a parking lot with 4 spots.&quot; instead of &quot;Sorry, a parking lot has not been created.&quot;. See example 1.
+
+    Please find below the output of your program during this failed test.
+    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
+
+    ---
+
+    &gt; spot_by_color yellow
+    &gt; create 4
+    Created a parking lot with 4 spots.
+    &gt; park KA-01-HH-9999 White
+    White car parked in spot 1.
+    &gt; park KA-01-HH-3672 White
+    White car parked in spot 2.
+    &gt; park Rs-P-N-21 Red
+    Red car parked in spot 3.
+    &gt; park Rs-P-N-22 Red
+    Red car parked in spot 4.
+    &gt; reg_by_color GREEN
+    &gt; reg_by_color WHITE
+    &gt; spot_by_color GREEN
+    &gt; spot_by_color red
+    &gt; spot_by_reg ABC
+    &gt; spot_by_reg KA-01-HH-3672
+    &gt; spot_by_reg Rs-P-N-21
+    &gt; exit
+  time: "Fri, 21 Apr 2023 09:16:08 UTC"
+record: 5

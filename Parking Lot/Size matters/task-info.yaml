@@ -66,35 +66,6 @@ files:
             get() = _colour
     }
   learner_created: false
-- name: src/parking/ICommand.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface ICommand {
-        fun execute()
-    }
-  learner_created: false
-- name: src/parking/IParkingSpace.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface IParkingSpace {
-        fun parkOnSpot(vehicle: Vehicle)
-
-        fun leaveASpot(int: Int?)
-    }
-  learner_created: false
-- name: src/parking/IMessageHandler.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface IMessageHandler {
-        fun handleMessage(message: String)
-    }
-  learner_created: false
 - name: src/parking/CommandResult.kt
   visible: true
   text: |-
@@ -131,16 +102,6 @@ files:
         }
     }
 
-  learner_created: false
-- name: src/parking/IFindSpaceAlgorithm.kt
-  visible: true
-  text: |-
-    package parking
-
-    interface IFindSpaceAlgorithm {
-
-        fun findFirstFreeSpot()
-    }
   learner_created: false
 - name: test/ParkingTest.kt
   visible: false
@@ -298,6 +259,132 @@ files:
     }
 
   learner_created: false
+- name: src/parking/ParkingSpace.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface ParkingSpace {
+        fun parkOnSpot(vehicle: Vehicle)
+
+        fun leaveASpot(int: Int?)
+
+        fun hasAFreeSpot(): Boolean
+    }
+  learner_created: true
+- name: src/parking/Utils.kt
+  visible: true
+  text: |-
+    package parking
+    class Utils {
+        companion object {
+            fun readUserInput(): List<String> {
+                return readLine()?.let {
+                    it.split(" ")
+                } ?: "-1" as List<String>
+            }
+        }
+    }
+  learner_created: true
+- name: src/parking/Vehicle.kt
+  visible: true
+  text: |-
+    package parking
+
+    data class Vehicle(val regNumber: String?, val colour: String?) {
+
+    }
+  learner_created: true
+- name: src/parking/FindSpaceAlgorithm.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface FindSpaceAlgorithm {
+
+        fun findFirstFreeSpot()
+    }
+  learner_created: true
+- name: src/parking/MessageHandler.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface MessageHandler {
+        fun handleMessage(message: String)
+    }
+  learner_created: true
+- name: src/parking/Parking.kt
+  visible: true
+  text: |-
+    package parking
+
+    import java.util.*
+
+    class Parking(
+        private val handler: MessageHandler = ConsoleMessageHandler(),
+    //    private val initialState: List<Vehicle> = emptyList()
+    ) : ParkingSpace {
+
+        //    private val parkingSpace = mutableListOf<Vehicle>(
+    //        // Project initial assumptions
+    //        // 1. First slot is already occupied
+    //        // 2. Second slot is free
+    ////        Vehicle("dummyNumber", "dummyColour"),
+    ////        Vehicle("DB-123-12", "Orange")
+    //    )
+        private val parkingSize: Int = 20
+        private val parkingSpace: Array<Vehicle?> = arrayOfNulls(parkingSize)
+
+        override fun parkOnSpot(vehicle: Vehicle) {
+            for (parkingLot in parkingSpace.indices) {
+                if (parkingSpace[parkingLot] === null) {
+                    parkingSpace[parkingLot] = vehicle
+                    handler.handleMessage("${vehicle.colour} car parked in spot ${parkingLot + 1}.")
+                    //println(parkingSpace.contentToString())
+                    break
+                }
+                if (!hasAFreeSpot()) {
+                    handler.handleMessage("Sorry, the parking lot is full.")
+                    break
+                }
+            }
+
+        }
+
+        override fun leaveASpot(int: Int?) {
+            if (parkingSpace.getOrNull(int!! -1) == null) {
+                    handler.handleMessage("There is no car in spot ${int}.")
+                } else {
+                    parkingSpace[int-1] = null
+                    handler.handleMessage("Spot $int is free.")
+                }
+        }
+
+        override fun hasAFreeSpot(): Boolean {
+            var count = 0
+            for (parkingLot in parkingSpace.indices) {
+                if (parkingSpace[parkingLot] === null) {
+                    count++
+                }
+            }
+            return count > 0
+        }
+
+    }
+  learner_created: true
+- name: src/parking/Command.kt
+  visible: true
+  text: |-
+    package parking
+
+    interface Command {
+        fun execute(): String
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/6600#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Fri, 21 Apr 2023 09:17:09 UTC"
+record: 4
