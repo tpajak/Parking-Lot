@@ -6,4 +6,10 @@ interface ParkingSpace {
     fun leaveASpot(int: Int?)
 
     fun hasAFreeSpot(): Boolean
+
+    fun status()
+
+    fun setSize(parkingSize: Int): Int
+
+    fun getParkingSize(): Int
 }
