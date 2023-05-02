@@ -1,29 +1,15 @@
 package parking
 
-import kotlin.system.exitProcess
-
 //const val isInDebugMode: Boolean = false
 
 fun main() {
     var result: String? = null
-//    var parkingSize: Int = 5
     val parking: Parking = Parking(ConsoleMessageHandler(), parkingSize = 0)
-        var simpleCommand: Command? = null
-
-
-//        var userInput = Utils.readUserInput()
-//        val simpleCommand = readCommand(parking)
-
+    var simpleCommand: Command? = null
 
     do {
         simpleCommand = readCommand(parking)
         result = simpleCommand.execute()
-
-//        if (parking.getParkingSize() == 0 && result != "exit") {
-//            println("Sorry, a parking lot has not been created.")
-//            //simpleCommand = readCommand(parking)
-//            //result = simpleCommand.execute()
-//        }
 
     } while (result != "exit")
     //enum or sealed class
@@ -70,6 +56,30 @@ fun readCommand(parking: Parking): Command {
                 return SimpleCommand {
                     parking.status()
                     return@SimpleCommand "status"
+                }
+            }
+
+            "reg_by_color" -> {
+                val commandResult = CommandResult.RegistrationsByColour(userInput[0], userInput[1])
+                return SimpleCommand {
+                    parking.registrationByColour(commandResult.colour)
+                    return@SimpleCommand "reg_by_color"
+                }
+            }
+
+            "spot_by_color" -> {
+                val commandResult = CommandResult.SportByColour(userInput[0], userInput[1])
+                return SimpleCommand {
+                    parking.spotByColour(commandResult.colour)
+                    return@SimpleCommand "spot_by_color"
+                }
+            }
+
+            "spot_by_reg" -> {
+                val commandResult = CommandResult.SportByRegistration(userInput[0], userInput[1])
+                return SimpleCommand {
+                    parking.spotByRegistration(commandResult.regNumber)
+                    return@SimpleCommand "spot_by_reg"
                 }
             }
 
